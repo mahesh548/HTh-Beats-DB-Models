@@ -25,7 +25,9 @@ const Library = mongoose.Schema({
 Library.virtual("data", {
   ref: (doc) => doc.type,
   localField: "id",
-  foreignField: "id",
+  foreignField: (doc) => {
+    return doc.type == "entity" ? "id" : "artistId";
+  },
   justOne: true,
 });
 
