@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-/* THIS IS TEST COMMENT */
+
 const objSchema = mongoose.Schema({
   id: String,
   image: String,
