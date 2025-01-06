@@ -15,6 +15,7 @@ const entitySchema = mongoose.Schema({
   idList: { type: [String], required: true },
   list: Array,
   more_info: Object,
+  userId: [String],
 });
 
 module.exports = mongoose.model("entity", entitySchema);
