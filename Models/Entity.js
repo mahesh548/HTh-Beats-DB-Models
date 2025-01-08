@@ -12,7 +12,7 @@ const entitySchema = mongoose.Schema({
   year: String,
   play_count: String,
   list_count: String,
-  idList: { type: [String], required: true },
+  idList: [String],
   list: Array,
   more_info: Object,
   userId: [String],

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const entityTypes = ["entity", "artist", "song"];
+const entityTypes = ["entity", "artist", "private", "collab"];
 const Library = mongoose.Schema({
   userId: { type: [String], required: true },
   id: { type: String, required: true },
@@ -13,7 +13,6 @@ const Library = mongoose.Schema({
       message: (props) => `${props.value} is not valid entity types.`,
     },
   },
-  owner: String,
   createdAt: {
     type: Date,
     default: () => {
@@ -23,10 +22,12 @@ const Library = mongoose.Schema({
 });
 
 Library.virtual("data", {
-  ref: (doc) => doc.type,
+  ref: (doc) => {
+    return doc.type == "artist" ? "artist" : "entity";
+  },
   localField: "id",
   foreignField: (doc) => {
-    return doc.type == "entity" ? "id" : "artistId";
+    return doc.type == "artist" ? "artistId" : "id";
   },
   justOne: true,
 });
