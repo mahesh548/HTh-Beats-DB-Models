@@ -16,6 +16,18 @@ const entitySchema = mongoose.Schema({
   list: Array,
   more_info: Object,
   userId: [String],
+  updatedAt: {
+    type: Date,
+    default: () => {
+      return Date.now();
+    },
+  },
+});
+
+entitySchema.pre("save", function (next) {
+  /* This function will always run before database save anything to collection */
+  this.updatedAt = Date.now();
+  next();
 });
 
 module.exports = mongoose.model("entity", entitySchema);
