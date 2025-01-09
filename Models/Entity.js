@@ -25,7 +25,6 @@ const entitySchema = mongoose.Schema({
 });
 
 entitySchema.pre("save", function (next) {
-  /* This function will always run before database save anything to collection */
   this.updatedAt = Date.now();
   next();
 });

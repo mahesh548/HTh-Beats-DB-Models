@@ -28,7 +28,6 @@ const Library = mongoose.Schema({
 });
 
 Library.pre("save", function (next) {
-  /* This function will always run before database save anything to collection */
   this.updatedAt = Date.now();
   next();
 });
