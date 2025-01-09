@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const utils = require("../../utils");
+require("../Models/Song");
 
-const activities = ["saved", "played"];
+const activities = ["saved", "played", "created", "joined"];
 const activityOf = ["entity", "artist", "private", "collab", "song"];
 const activitySchema = mongoose.Schema({
   userId: { type: String, required: true },
@@ -72,4 +73,34 @@ activitySchema.statics.saveLog = async function (data) {
     }
   }
 };
+
+const refAndField = {
+  artist: { ref: "artist", foreignField: "artistId" },
+  entity: { ref: "entity", foreignField: "id" },
+  private: { ref: "entity", foreignField: "id" },
+  collab: { ref: "entity", foreignField: "id" },
+  song: { ref: "song", foreignField: "id" },
+};
+
+activitySchema.virtual("data", {
+  ref: (doc) => {
+    return refAndField[doc.type].ref;
+  },
+  localField: "id",
+  foreignField: (doc) => {
+    return refAndField[doc.type].foreignField;
+  },
+  justOne: true,
+});
+activitySchema.virtual("list", {
+  ref: "song",
+  localField: "idList",
+  foreignField: "id",
+  justOne: false,
+});
+
+// Enable virtuals in JSON output
+activitySchema.set("toObject", { virtuals: true });
+activitySchema.set("toJSON", { virtuals: true });
+
 module.exports = mongoose.model("activity", activitySchema);
