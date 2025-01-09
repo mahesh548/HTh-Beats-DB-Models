@@ -29,16 +29,16 @@ const activitySchema = mongoose.Schema({
     },
   },
 });
-activitySchema.statics.saveLog = function (data) {
+activitySchema.statics.saveLog = async function (data) {
   const { userId, activity, id, type, idList } = data;
-  const activeData = this.findOne({
+  const activeData = await this.findOne({
     userId: userId,
     activity: activity,
     id: id,
     type: type,
   });
-  const timeDiff = utils.dura(activeData.createdAt);
-  if (activeData && timeDiff <= 24) {
+  const timeDiff = utils.dura(activeData?.createdAt);
+  if (activeData && timeDiff.hrs <= 24) {
     if (type == "song") {
       return true;
     } else {
@@ -46,28 +46,28 @@ activitySchema.statics.saveLog = function (data) {
         (item) => !idList.includes(item)
       );
       activeData.idList = [...idList, ...oldList];
-      activeData.save();
+      await activeData.save();
       return true;
     }
   } else {
     if (type == "song") {
-      const newActivity = new this({
+      const newActivity = await new this({
         userId: userId,
         activity: activity,
         id: id,
         type: type,
       });
-      newActivity.save();
+      await newActivity.save();
       return true;
     } else {
-      const newActivity = new this({
+      const newActivity = await new this({
         userId: userId,
         activity: activity,
         id: id,
         type: type,
         idList: idList,
       });
-      newActivity.save();
+      await newActivity.save();
       return true;
     }
   }
