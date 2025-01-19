@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { refineObj } = require("../../utils");
 const homeSchema = mongoose.Schema({
-  language: { type: [String], required: true },
   createdAt: {
     type: Date,
     default: () => Date.now(),
