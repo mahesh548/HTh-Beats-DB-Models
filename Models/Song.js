@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+const artistSchema = mongoose.Schema({
+  id: String,
+  name: String,
+  role: String,
+  image: String,
+  perma_url: String,
+  type: String,
+});
+
+const artistMapSchema = mongoose.Schema({
+  artists: [artistSchema],
+  featured_artists: [artistSchema],
+  primary_artists: [artistSchema],
+});
+
 const moreSchema = mongoose.Schema({
   music: String,
   album_id: String,
@@ -11,7 +26,7 @@ const moreSchema = mongoose.Schema({
   has_lyrics: String,
   lyrics_snippet: String,
   duration: String,
-  artistMap: Object,
+  artistMap: artistMapSchema,
   release_date: String,
 });
 
