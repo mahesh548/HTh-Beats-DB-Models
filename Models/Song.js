@@ -18,6 +18,7 @@ const artistMapSchema = mongoose.Schema({
 const moreSchema = mongoose.Schema({
   music: String,
   album_id: String,
+  album_url: String,
   album: String,
   label: String,
   "320kbps": String,
@@ -48,6 +49,10 @@ songSchema.pre("insertMany", async function (next, docs) {
     if (doc?.perma_url?.length != 0) {
       const splitter = doc.perma_url.split("/");
       doc.perma_url = splitter[splitter.length - 1];
+    }
+    if (doc?.more_info?.album_url?.length != 0) {
+      const splitter = doc.more_info.album_url.split("/");
+      doc.more_info.album_url = splitter[splitter.length - 1];
     }
   }
   next();
