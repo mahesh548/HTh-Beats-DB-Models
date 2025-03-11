@@ -26,6 +26,7 @@ const entitySchema = mongoose.Schema({
 
 entitySchema.pre("save", function (next) {
   this.updatedAt = Date.now();
+  this.list_count = String(this?.idList?.length || 0);
   next();
 });
 
