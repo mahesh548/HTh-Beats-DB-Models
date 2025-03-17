@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const entityTypes = ["entity", "artist", "private", "collab"];
+const entityTypes = ["entity", "artist"];
 const Library = mongoose.Schema({
   userId: { type: [String], required: true },
   id: { type: String, required: true },
