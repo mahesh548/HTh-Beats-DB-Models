@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const entitySchema = mongoose.Schema({
   id: { type: String, required: true },
   title: { type: String, required: true },
+  owner: String,
   subtitle: String,
   header_desc: String,
   perma_url: String,
