@@ -13,6 +13,7 @@ const Library = mongoose.Schema({
       message: (props) => `${props.value} is not valid entity types.`,
     },
   },
+  librarySecrate: { type: String, select: false, immutable: true },
   createdAt: {
     type: Date,
     default: () => {
