@@ -11,6 +11,8 @@ const searchSchema = mongoose.Schema({
   id: String,
 });
 
+searchSchema.index({ title: "text", subtitle: "text" });
+
 searchSchema.pre("insertMany", async function (next, docs) {
   for (const doc of docs) {
     if (doc?.url?.length) {
