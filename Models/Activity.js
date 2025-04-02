@@ -22,8 +22,14 @@ const activitySchema = mongoose.Schema({
     },
   },
   id: String,
-  idList: [String],
+  idList: { type: [String], default: [] },
   createdAt: {
+    type: Date,
+    default: () => {
+      return Date.now();
+    },
+  },
+  updatedAt: {
     type: Date,
     default: () => {
       return Date.now();
@@ -40,16 +46,15 @@ activitySchema.statics.saveLog = async function (data) {
   });
   const timeDiff = utils.dura(activeData?.createdAt);
   if (activeData && timeDiff.hrs <= 24) {
-    if (type == "song") {
-      return true;
-    } else {
+    if (type != "song") {
       const oldList = activeData.idList.filter(
         (item) => !idList.includes(item)
       );
       activeData.idList = [...idList, ...oldList];
-      await activeData.save();
-      return true;
     }
+    activeData.updatedAt = Date.now();
+    await activeData.save();
+    return true;
   } else {
     if (type == "song") {
       const newActivity = await new this({
