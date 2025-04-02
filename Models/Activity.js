@@ -3,7 +3,7 @@ const utils = require("../../utils");
 require("../Models/Song");
 
 const activities = ["saved", "played", "created", "joined"];
-const activityOf = ["entity", "artist", "private", "collab", "song"];
+const activityOf = ["entity", "artist", "song", "search"];
 const activitySchema = mongoose.Schema({
   userId: { type: String, required: true },
   activity: {
