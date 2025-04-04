@@ -6,14 +6,18 @@ const recordSchema = mongoose.Schema({
   ids: [String],
 });
 
-recordSchema.statics.findQuerySound = async function (q) {
+recordSchema.statics.findQuerySound = async function (q, page) {
+  const limit = 5;
+  const skip = (page - 1) * limit;
   const soundexCode = q.split(" ").map((item) => soundex(item));
   const data = await this.find({
     $or: [
       { query: { $regex: `\\b${q}`, $options: "i" } },
       { soundex: soundexCode },
     ],
-  });
+  })
+    .skip(skip)
+    .limit(limit);
   let specificSearchIds = [];
   if (data.length != 0) {
     data.forEach(
