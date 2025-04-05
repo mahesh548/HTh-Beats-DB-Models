@@ -44,8 +44,9 @@ activitySchema.statics.saveLog = async function (data) {
     id: id,
     type: type,
   });
-  const timeDiff = !utils.isDifferentDay(Date.now(), activeData.createdAt);
-  if (activeData && timeDiff) {
+  const timeDiff =
+    activeData && !utils.isDifferentDay(Date.now(), activeData.createdAt);
+  if (timeDiff) {
     if (type != "song") {
       const oldList = activeData.idList.filter(
         (item) => !idList.includes(item)
