@@ -47,36 +47,21 @@ activitySchema.statics.saveLog = async function (data) {
   const timeDiff =
     activeData && !utils.isDifferentDay(Date.now(), activeData.createdAt);
   if (timeDiff) {
-    if (type != "song") {
-      const oldList = activeData.idList.filter(
-        (item) => !idList.includes(item)
-      );
-      activeData.idList = [...idList, ...oldList];
-    }
+    const oldList = activeData.idList.filter((item) => !idList.includes(item));
+    activeData.idList = [...idList, ...oldList];
     activeData.updatedAt = Date.now();
     await activeData.save();
     return true;
   } else {
-    if (type == "song") {
-      const newActivity = await new this({
-        userId: userId,
-        activity: activity,
-        id: id,
-        type: type,
-      });
-      await newActivity.save();
-      return true;
-    } else {
-      const newActivity = await new this({
-        userId: userId,
-        activity: activity,
-        id: id,
-        type: type,
-        idList: idList,
-      });
-      await newActivity.save();
-      return true;
-    }
+    const newActivity = await new this({
+      userId: userId,
+      activity: activity,
+      id: id,
+      type: type,
+      idList: idList,
+    });
+    await newActivity.save();
+    return true;
   }
 };
 
