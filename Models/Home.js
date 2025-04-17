@@ -6,6 +6,7 @@ const homeSchema = mongoose.Schema({
     default: () => Date.now(),
   },
   data: Object,
+  lang: String,
 });
 
 homeSchema.pre("save", function (next) {
