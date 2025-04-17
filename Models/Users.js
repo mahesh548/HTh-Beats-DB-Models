@@ -26,7 +26,7 @@ const usersSchema = mongoose.Schema({
       )}&bold=true&background=f5deb3&length=1&font-size=0.6`;
     },
   },
-  languages: { type: [String], default: ["Hindi"] },
+  languages: { type: [String], default: ["hindi"] },
   cloudinaryPublicId: String,
   cloudinaryVersion: String,
 });
