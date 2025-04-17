@@ -19,6 +19,8 @@ const usersSchema = mongoose.Schema({
   session: { type: String, default: null },
   pic: { type: String, default: "avtar.png" },
   languages: { type: [String], default: ["Hindi"] },
+  cloudinaryPublicId: String,
+  cloudinaryVersion: String,
 });
 
 module.exports = mongoose.model("user", usersSchema);
