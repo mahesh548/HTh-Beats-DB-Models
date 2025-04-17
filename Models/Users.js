@@ -17,7 +17,15 @@ const usersSchema = mongoose.Schema({
   otp: { type: Number, min: 1000, max: 9999 },
   verified: { type: Boolean, default: false },
   session: { type: String, default: null },
-  pic: { type: String, default: "avtar.png" },
+  pic: {
+    type: String,
+    default: function () {
+      const username = this.username || "HTh";
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        username
+      )}&bold=true&background=f5deb3&length=1&font-size=0.6`;
+    },
+  },
   languages: { type: [String], default: ["Hindi"] },
   cloudinaryPublicId: String,
   cloudinaryVersion: String,
