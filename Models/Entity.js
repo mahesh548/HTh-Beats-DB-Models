@@ -25,7 +25,7 @@ const entitySchema = mongoose.Schema({
   },
 });
 
-entitySchema.index({ title: "text", subtitle: "text" });
+entitySchema.index({ title: 1, subtitle: 1 });
 
 entitySchema.pre("save", function (next) {
   this.updatedAt = Date.now();

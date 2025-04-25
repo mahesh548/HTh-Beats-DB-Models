@@ -44,7 +44,7 @@ const songSchema = mongoose.Schema({
   perma_url: String,
 });
 
-songSchema.index({ title: "text", subtitle: "text" });
+songSchema.index({ title: 1, subtitle: 1 });
 
 songSchema.pre("insertMany", async function (next, docs) {
   for (const doc of docs) {
