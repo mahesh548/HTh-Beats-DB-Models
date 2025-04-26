@@ -53,6 +53,6 @@ const artistSchema = mongoose.Schema({
   perma_url: String,
 });
 
-artistSchema.index({ name: "text" });
+artistSchema.index({ name: 1 });
 
 module.exports = mongoose.model("artist", artistSchema);
