@@ -23,6 +23,7 @@ const activitySchema = mongoose.Schema({
   },
   id: String,
   idList: { type: [String], default: [] },
+  hitNplay: { type: [String], default: [] },
   createdAt: {
     type: Date,
     default: () => {
@@ -37,7 +38,7 @@ const activitySchema = mongoose.Schema({
   },
 });
 activitySchema.statics.saveLog = async function (data) {
-  const { userId, activity, id, type, idList } = data;
+  const { userId, activity, id, type, idList, mode = "auto" } = data;
   const activeData = await this.findOne({
     userId: userId,
     activity: activity,
@@ -49,6 +50,12 @@ activitySchema.statics.saveLog = async function (data) {
   if (timeDiff) {
     const oldList = activeData.idList.filter((item) => !idList.includes(item));
     activeData.idList = [...idList, ...oldList];
+    if (mode == "manual") {
+      const old_hitNplay = activeData.hitNplay.filter(
+        (item) => !idList.includes(item)
+      );
+      activeData.hitNplay = [...idList, ...old_hitNplay];
+    }
     activeData.updatedAt = Date.now();
     await activeData.save();
     return true;
@@ -59,6 +66,7 @@ activitySchema.statics.saveLog = async function (data) {
       id: id,
       type: type,
       idList: idList,
+      hitNplay: mode == "manual" ? idList : [],
     });
     await newActivity.save();
     return true;
