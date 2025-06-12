@@ -17,6 +17,16 @@ const usersSchema = mongoose.Schema({
   otp: { type: Number, min: 1000, max: 9999 },
   verified: { type: Boolean, default: false },
   session: { type: String, default: null },
+  downloadAccess: {
+    type: String,
+    enum: ["default", "requested", "approved"],
+    default: "default",
+  },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+  },
   pic: {
     type: String,
     default: function () {
