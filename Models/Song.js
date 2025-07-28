@@ -29,6 +29,10 @@ const moreSchema = mongoose.Schema({
   duration: String,
   artistMap: artistMapSchema,
   release_date: String,
+  has_video: Boolean,
+  video_url: String,
+  video_preview_url: String,
+  video_thumbnail: String,
 });
 
 const songSchema = mongoose.Schema({
