@@ -80,6 +80,7 @@ const refAndField = {
   collab: { ref: "entity", foreignField: "id" },
   song: { ref: "song", foreignField: "id" },
   search: { ref: "song", foreignField: "id" },
+  radio: { ref: "song", foreignField: "id" },
 };
 
 activitySchema.virtual("data", {
